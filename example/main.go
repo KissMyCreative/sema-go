@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/jsnfwlr/vexil-go"
+	"github.com/kissmycreative/sema-go"
 )
 
 type Logger struct{}
@@ -16,10 +16,10 @@ func (l Logger) Log(message string) {
 
 func main() {
 	l := Logger{}
-	client := vexil.NewClient("http://localhost:9765", &http.Client{}, l)
+	client := sema.NewClient("http://localhost:9765", &http.Client{}, l)
 
 	go func() {
-		client.EventsToFunc("dev", func(flag vexil.Flag) {
+		client.EventsToFunc("dev", func(flag sema.Flag) {
 			// Handle the received message
 			fmt.Printf("Got flag from dev-env:\n\t%s (%s) = %q\n", flag.Name, flag.Type, flag.Value)
 		})

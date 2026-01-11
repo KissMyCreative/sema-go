@@ -1,4 +1,4 @@
-package vexil
+package sema
 
 import (
 	"encoding/json"
@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/jsnfwlr/sse/v2"
+	"github.com/r3labs/sse/v2"
 )
 
 type Client struct {
@@ -23,7 +23,9 @@ type Flag struct {
 }
 
 func NewClient(address string, baseClient *http.Client, logger Logger) (vexilClient *Client) {
-	c := sse.NewClient(address + "/api/events")
+	url := address + "/api/events"
+	logger.Log(url)
+	c := sse.NewClient(url)
 
 	c.Connection = baseClient
 
@@ -35,14 +37,14 @@ func NewClient(address string, baseClient *http.Client, logger Logger) (vexilCli
 }
 
 // FlagsToEnv uses the Client to make a HTTP request to get all the available
-// flags from the Vexil server for the $environment and then updates the local
+// flags from the Sema server for the $environment and then updates the local
 // environment variavles according to the flag data
 func (c *Client) FlagsToEnv(environment string) (fault error) {
 	return nil
 }
 
 // FlagsToFunc uses the Client to make a HTTP request to get all the available
-// flags from the Vexil server for the $environment and then calls the $handler
+// flags from the Sema server for the $environment and then calls the $handler
 // once for each flag, passing it the flag data.
 func (c *Client) FlagsToFunc(environment string, handler func(flag Flag)) (fault error) {
 	url, err := url.JoinPath(c.address, "api", "environment", environment, "flag")

@@ -1,11 +1,8 @@
-module github.com/jsnfwlr/vexil-go
+module github.com/kissmycreative/sema-go
 
-go 1.24.4
+go 1.25.0
 
-require (
-	github.com/jsnfwlr/sse/v2 v2.11.0
-	github.com/r3labs/sse/v2 v2.10.0
-)
+require github.com/r3labs/sse/v2 v2.10.0
 
 require (
 	golang.org/x/net v0.42.0 // indirect

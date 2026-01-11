@@ -1,4 +1,4 @@
-package vexil
+package sema
 
 type Logger interface {
 	Log(message string)
